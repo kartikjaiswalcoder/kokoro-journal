@@ -1,0 +1,43 @@
+# Tasks
+- [x] Playlist: apply changes only on Play ("Save & Play" when changed), deselect + renumber, reset order after deselecting all, pin icon for defaults, mood-colored everything, keyboard selector (arrows/WASD + Enter/Ctrl+Enter/hold Enter).
+- [x] Player: double-click a mood opens its playlist (never deselects); prev/next and timeline follow mood color.
+- [x] Add date/day/text search to Entries and Reflections and shorten the calendar subtitle (already in imported app; multi-word search improved).
+- [x] Theme all pink accents from the player mood, preserve the green quote and independently colored playlists, and verify desktop/mobile flows.
+- [x] Restyle playlists to match the notepad, remove drag dots, simplify search/add feedback, and contain scrolling player titles; verify search/add, persistence, mouse/keyboard dragging, Enter playback, and desktop/mobile layout.
+- [x] Add per-user mood playlists with fixed defaults, search, custom-song ordering, ordered selection, playback modes, and previous/next controls.
+- [x] Connect YouTube search and verify real search/add/play, persistence after reload, default exclusion, dragging, numbered hold/control selection, and desktop/mobile display.
+- [x] Confirm optional mood context and clear outdated summaries when changed text is saved, including immediate Reflections updates.
+- [x] Check safe no-paid-service reliability improvements: block duplicate in-flight requests without changing Gemini models, adding paid services, or promising quota availability; verify tests and signed-in save/reload flow.
+- [x] Adapt summary length to entry length without changing Gemini models or surrounding UI.
+- [x] Ensure regenerated saved summaries update both notepad and Reflections without reloading.
+- [x] Run regression checks; verify real short-summary generation, reuse, and Reflections readback; confirm signed-in preview opens without runtime errors.
+- [ ] Verify successful regeneration end-to-end in the browser — blocked by Gemini returning timeout/unavailable responses (504/503). Automated synchronization regression passes.
+- [x] Make AI summaries reliable: fast lite Gemini models raced in parallel, rotation, cooldown on rate limits, second pass.
+- [x] Daily journaling reminder: time in Settings, push notification at that time + gentle follow-up 15 min later if not written; permission prompt.
+- [x] Startup 'Set a reminder' popup when none set, with Okay and 'Don't show this again'.
+- [x] Reminder popup: never first visit, only occasionally, X close, permanent dismiss per account, never after a time is set.
+- [x] Reminder settings: 'Saved' stays disabled/faded until time input changes.
+- [x] Player: smooth fade back to white on mood off.
+- [x] Player: instant playback (playlist Play, first play, mood switch) and auto-continue when switching moods while playing.
+- [x] Loading screen always pink.
+- [x] Notepad save feels instant.
+- [x] Refine All Entries / Reflections search.
+- [x] Notepad centered on phones; photo frame redesign; photos saved only on Save; fresh notepad Save hint.
+- [x] Notepad + photo frame follow the day's mood theme.
+- [x] Per-device notification invite + Settings device status.
+- [x] Exact day matching in search ("1", "nov 1").
+- [x] Move the app onto this project's Lovable Cloud: database tables and privacy rules, private photo storage, Google sign-in, every-minute reminder job, fresh notification keys, Gemini and YouTube keys (Gemini "AQ." key confirmed working).
+- [x] Notepad: "Save Entry" → "Save" everywhere.
+- [x] Notepad: empty-save hint as a soft mood-colored pop-up from below; footer text stays unchanged.
+- [x] Notepad theme defaults to the player (outside) theme when no mood is picked.
+- [x] Photo frame: move the back "←" button to the notepad's top right; give + and ← buttons the app's normal tint (light, darker on hover).
+- [x] Mobile notepad: one more writing line at the bottom, still vertically centered.
+- [x] Generating/regenerating an AI summary counts as an unsaved change; summary only stored when the entry is saved.
+- [x] Reflections: clicking a reflection opens the notepad with its AI summary at the same instant.
+- [x] Notepad lines: text sits on the lines (fix first-line offset).
+- [x] Empty-save pop-up even softer; adding photos opens the photo frame; back button corner on phone, inset + bigger on desktop; mood/photos alone without text show the empty-save pop-up.
+- [x] Re-create the app on this project's Lovable Cloud from the uploaded zip: tables and privacy rules, private photo storage, Google sign-in, every-minute reminder job, fresh notification keys, Gemini and YouTube keys.
+- [x] Bring over existing journal data — skipped by the user for now.
+- [x] Music: switching songs/moods stops the old song immediately (no more old song playing while the new one loads).
+- [x] Photo thumbnails load instantly across notepad, All Entries and Reflections (stored links + pre-downloaded images).
+- [x] Photo frame: softer "←" and "+" buttons (no shadow, pastel background, faint/dashed border).

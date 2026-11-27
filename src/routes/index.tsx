@@ -1,23 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
+import KokoroApp from "@/components/KokoroApp";
+import SignIn from "@/components/SignIn";
+import { useSession } from "@/lib/auth";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  ssr: false,
+  head: () => ({
+    meta: [
+      { title: "Kokoro · 心" },
+      { name: "description", content: "A gentle daily journal with moods, streaks, music and soft AI reflections." },
+      { property: "og:title", content: "Kokoro · 心" },
+      { property: "og:description", content: "A gentle daily journal with moods, streaks, music and soft AI reflections." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  const { session, loading } = useSession();
+  if (loading) return null;
+  return session ? <KokoroApp /> : <SignIn />;
 }

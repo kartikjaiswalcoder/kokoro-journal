@@ -1,0 +1,58 @@
+[
+ {
+  "capability": "code",
+  "source": "kokoro-journal-main.zip",
+  "outcome": "copy",
+  "status": "verified",
+  "next_action": ""
+ },
+ {
+  "capability": "schema",
+  "source": "drizzle/migrations 0000-0002",
+  "outcome": "migrate",
+  "status": "verified",
+  "next_action": ""
+ },
+ {
+  "capability": "storage",
+  "source": "journal-photos private bucket",
+  "outcome": "migrate",
+  "status": "verified",
+  "next_action": ""
+ },
+ {
+  "capability": "auth",
+  "source": "Lovable Cloud Google sign-in",
+  "outcome": "migrate",
+  "status": "verified",
+  "next_action": ""
+ },
+ {
+  "capability": "records",
+  "source": "previous Cloud database",
+  "outcome": "migrate",
+  "status": "pending",
+  "next_action": "user may supply exports of old journal data, or skip"
+ },
+ {
+  "capability": "schedule",
+  "source": "/api/public/jobs/reminders every minute",
+  "outcome": "migrate",
+  "status": "verified",
+  "next_action": ""
+ },
+ {
+  "capability": "secrets",
+  "source": "VAPID_PRIVATE_KEY, GEMINI_API_KEY, YOUTUBE_API_KEY",
+  "outcome": "migrate",
+  "status": "verified",
+  "next_action": ""
+ },
+ {
+  "capability": "verification",
+  "source": "tests + build",
+  "outcome": "verify",
+  "status": "verified",
+  "next_action": ""
+ }
+]

@@ -1,22 +1,66 @@
-/*
- * Tailwind v4 entry: config lives here, with no tailwind.config.js or PostCSS plugin.
- * - Keep every @import in this top block, above @theme and the rest of the file. Install an
- *   npm package before @importing its CSS. Never @import a remote URL (web fonts, CDN CSS): the
- *   build resolves @import from the filesystem. Load those with a <link> in the head() of
- *   src/routes/__root.tsx and name the family in a --font-* token in @theme inline below.
- */
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-ivory: #fbf7f2;
+  --color-ivory-50: #fefdfb;
+  --color-ivory-100: #fdf8f3;
+  --color-ivory-200: #f7efe5;
+  --color-sakura-50: #fdf5f7;
+  --color-sakura-100: #fbe8ee;
+  --color-sakura-200: #f7d3df;
+  --color-sakura-300: #f0b3c9;
+  --color-sakura-400: #e98fae;
+  --color-sakura-500: #df6d92;
+  --color-sakura-600: #c9547a;
+  --color-sakura-700: #a83f60;
+  /* Fixed pink for the "Happy" entry mood: unlike sakura it never follows the player theme. */
+  --color-blossom-100: #fbe8ee;
+  --color-blossom-200: #f7d3df;
+  --color-blossom-300: #f0b3c9;
+  --color-blossom-600: #c9547a;
+  --color-sage-50: #f3f7f1;
+  --color-sage-100: #e6efe1;
+  --color-sage-200: #d2e0ca;
+  --color-sage-300: #b3c9a5;
+  --color-sage-400: #92ac7f;
+  --color-sage-500: #748d61;
+  --color-sage-600: #5c724c;
+  --color-sage-700: #495b3d;
+  --color-mint-100: #eaf5ee;
+  --color-mint-200: #d4ebdd;
+  --color-cream: #fdf9f0;
+  --color-charcoal: #3a3530;
+  --color-forest: #44523a;
+  --color-lavender-100: #f1edf6;
+  --color-lavender-200: #e3dcef;
+  --color-playlist-excited: oklch(0.9 0.055 70);
+  --color-playlist-okay: oklch(0.92 0.008 260);
+  --color-playlist-sad: oklch(0.91 0.035 240);
+  --color-playlist-anxious: oklch(0.9 0.045 20);
+  --font-serif: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+  --shadow-paper: 0 12px 40px -12px rgba(120, 90, 100, 0.18), 0 4px 12px -6px rgba(120,90,100,0.12);
+  --shadow-soft: 0 2px 12px -4px rgba(120, 90, 100, 0.10);
+  --shadow-tile: 0 2px 10px -3px rgba(120, 90, 100, 0.08);
+  --animate-fadeIn: fadeIn 0.3s ease-out;
+  --animate-slideUp: slideUp 0.35s cubic-bezier(0.22,1,0.36,1);
+  --animate-toastIn: toastIn 0.25s ease-out;
+  --animate-riseIn: riseIn 0.4s cubic-bezier(0.22,1,0.36,1);
+  @keyframes fadeIn { 0% { opacity: 0 } 100% { opacity: 1 } }
+  @keyframes slideUp { 0% { opacity: 0; transform: translateY(16px) scale(0.98) } 100% { opacity: 1; transform: translateY(0) scale(1) } }
+  @keyframes petalFall { 0% { transform: translateY(-10%) rotate(0deg); opacity: 0 } 10% { opacity: 0.8 } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0 } }
+  @keyframes riseIn { 0% { opacity: 0; transform: translateY(28px) } 100% { opacity: 1; transform: translateY(0) } }
+  @keyframes toastIn { 0% { opacity: 0; transform: translateY(8px) scale(0.96) } 100% { opacity: 1; transform: translateY(0) scale(1) } }
+}
+
+
 /*
  * Design system definition.
- *
- * The design lives in this file: oklch color tokens on the shadcn variables
- * (--background, --foreground, --primary, --secondary, --muted, --accent, ...) plus
- * new tokens as needed, font tokens, and custom styles and animations.
  *
  * The @theme inline block maps CSS custom properties to Tailwind utility
  * classes (e.g. --color-primary -> bg-primary, text-primary).
@@ -34,8 +78,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
   --radius-4xl: calc(var(--radius) + 16px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -109,7 +153,6 @@
 }
 
 .dark {
-  color-scheme: dark;
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.208 0.042 265.755);
@@ -145,12 +188,172 @@
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
+  *, ::before, ::after { border-color: var(--color-border); }
+  html, body, body > div {
+    height: 100%;
   }
-
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--color-ivory);
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 12% 18%, color-mix(in oklab, var(--color-sakura-200) 22%, transparent) 0%, transparent 38%),
+      radial-gradient(circle at 88% 12%, rgba(210, 224, 202, 0.22) 0%, transparent 40%),
+      radial-gradient(circle at 78% 88%, rgba(243, 237, 246, 0.25) 0%, transparent 42%);
+    background-attachment: fixed;
   }
 }
+
+@layer base {
+  :root { --scrollbar-thumb: color-mix(in oklab, color-mix(in oklab, var(--color-sakura-400) 55%, #9a8f94) 40%, transparent); }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .scrollbar-soft {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+  .scrollbar-soft::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollbar-soft::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 9999px;
+  }
+  .scrollbar-soft::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+/* Lined journal paper: evenly spaced light-pink lines via repeating linear gradient */
+.journal-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 33px,
+    color-mix(in oklab, var(--color-sakura-400) 22%, transparent) 33px,
+    color-mix(in oklab, var(--color-sakura-400) 22%, transparent) 34px
+  );
+  /* Rules sit just under each line's letters, like notebook paper. */
+  background-position: 0 -8px;
+  line-height: 34px;
+}
+
+/* Music player: hovering anywhere in the control row lightens the play button and
+   both sliders together. Colors follow the playing mood. */
+.player-controls .player-range {
+  accent-color: var(--color-sakura-accent);
+  transition: accent-color 200ms ease;
+}
+.player-controls:hover .player-play {
+  opacity: 0.8;
+}
+.player-controls:hover .player-range {
+  accent-color: color-mix(in oklab, var(--color-sakura-200) 60%, var(--color-sakura-300));
+}
+
+.kokoro-playlist {
+  --playlist-tint: var(--color-sakura-200);
+  background: color-mix(in oklab, var(--playlist-tint) 18%, var(--background));
+  border-color: color-mix(in oklab, var(--playlist-tint) 65%, var(--background));
+}
+.kokoro-playlist[data-mood="excited"] { --playlist-tint: var(--color-playlist-excited); }
+.kokoro-playlist[data-mood="calm"] { --playlist-tint: var(--color-sage-200); }
+.kokoro-playlist[data-mood="okay"] { --playlist-tint: var(--color-playlist-okay); }
+.kokoro-playlist[data-mood="sad"] { --playlist-tint: var(--color-playlist-sad); }
+.kokoro-playlist[data-mood="anxious"] { --playlist-tint: var(--color-playlist-anxious); }
+.playlist-song-selected { background: color-mix(in oklab, var(--playlist-tint) 35%, var(--background)); }
+.kokoro-playlist > button:last-child {
+  border-radius: 9999px;
+  padding: 8px;
+  background: var(--color-sakura-50);
+  color: var(--color-charcoal);
+  right: 24px;
+  top: 28px;
+}
+.kokoro-playlist > button:last-child:hover { background: var(--color-sakura-100); color: var(--color-sakura-600); }
+.song-title-viewport { width: 100%; min-width: 0; overflow: hidden; }
+.song-title-static, .song-title-loop { display: flex; width: max-content; white-space: nowrap; }
+.song-title-loop { animation: song-title-scroll 22s linear infinite; }
+.song-title-loop span { padding-right: 3rem; }
+@keyframes song-title-scroll {
+  0%, 12% { transform: translateX(0); }
+  88%, 100% { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .song-title-loop { animation: none; }
+  .song-title-viewport { overflow-x: auto; scrollbar-width: none; }
+  .song-title-loop span[aria-hidden] { display: none; }
+  .kokoro-playlist .animate-toastIn { animation: none; }
+}
+
+/*
+ * Ambient mood theme. The music player sets data-mood-theme on <html> (and each playlist
+ * dialog sets its own), which swaps the sakura scale for that mood's palette. Lightness and
+ * chroma steps mirror sakura so every tint, border and accent keeps the same softness.
+ * --color-sakura-accent is the vivid slider color.
+ */
+
+@property --color-sakura-50 { syntax: "<color>"; inherits: true; initial-value: #fdf5f7; }
+@property --color-sakura-100 { syntax: "<color>"; inherits: true; initial-value: #fbe8ee; }
+@property --color-sakura-200 { syntax: "<color>"; inherits: true; initial-value: #f7d3df; }
+@property --color-sakura-300 { syntax: "<color>"; inherits: true; initial-value: #f0b3c9; }
+@property --color-sakura-400 { syntax: "<color>"; inherits: true; initial-value: #e98fae; }
+@property --color-sakura-500 { syntax: "<color>"; inherits: true; initial-value: #df6d92; }
+@property --color-sakura-600 { syntax: "<color>"; inherits: true; initial-value: #c9547a; }
+@property --color-sakura-700 { syntax: "<color>"; inherits: true; initial-value: #a83f60; }
+@property --color-sakura-accent { syntax: "<color>"; inherits: true; initial-value: #ec4899; }
+:root { --color-sakura-accent: #ec4899; transition: --color-sakura-50 500ms ease, --color-sakura-100 500ms ease, --color-sakura-200 500ms ease, --color-sakura-300 500ms ease, --color-sakura-400 500ms ease, --color-sakura-500 500ms ease, --color-sakura-600 500ms ease, --color-sakura-700 500ms ease, --color-sakura-accent 500ms ease; }
+/* The notepad (and everything opened from it) carries its own day-mood theme and fades the
+   same way. While it fades, inner color transitions pause so they follow the fade instead of
+   restarting every frame. */
+.mood-scope { transition: --color-sakura-50 500ms ease, --color-sakura-100 500ms ease, --color-sakura-200 500ms ease, --color-sakura-300 500ms ease, --color-sakura-400 500ms ease, --color-sakura-500 500ms ease, --color-sakura-600 500ms ease, --color-sakura-700 500ms ease, --color-sakura-accent 500ms ease; }
+.mood-scope.mood-shifting * { transition-duration: 0s !important; }
+[data-mood-theme="happy"] { --color-sakura-50: #fdf5f7; --color-sakura-100: #fbe8ee; --color-sakura-200: #f7d3df; --color-sakura-300: #f0b3c9; --color-sakura-400: #e98fae; --color-sakura-500: #df6d92; --color-sakura-600: #c9547a; --color-sakura-700: #a83f60; --color-sakura-accent: #ec4899; }
+[data-mood-theme="excited"] { --color-sakura-50: oklch(0.977 0.009 58); --color-sakura-100: oklch(0.948 0.022 58); --color-sakura-200: oklch(0.901 0.043 58); --color-sakura-300: oklch(0.829 0.076 58); --color-sakura-400: oklch(0.752 0.115 58); --color-sakura-500: oklch(0.679 0.147 58); --color-sakura-600: oklch(0.606 0.153 58); --color-sakura-700: oklch(0.521 0.141 58); --color-sakura-accent: oklch(0.656 0.2 58); }
+[data-mood-theme="calm"] { --color-sakura-50: oklch(0.977 0.005 140); --color-sakura-100: oklch(0.948 0.012 140); --color-sakura-200: oklch(0.901 0.024 140); --color-sakura-300: oklch(0.829 0.042 140); --color-sakura-400: oklch(0.752 0.063 140); --color-sakura-500: oklch(0.679 0.081 140); --color-sakura-600: oklch(0.606 0.084 140); --color-sakura-700: oklch(0.521 0.078 140); --color-sakura-accent: oklch(0.656 0.13 140); }
+[data-mood-theme="okay"] { --color-sakura-50: oklch(0.977 0.001 255); --color-sakura-100: oklch(0.948 0.003 255); --color-sakura-200: oklch(0.901 0.005 255); --color-sakura-300: oklch(0.829 0.009 255); --color-sakura-400: oklch(0.752 0.014 255); --color-sakura-500: oklch(0.679 0.018 255); --color-sakura-600: oklch(0.606 0.018 255); --color-sakura-700: oklch(0.521 0.017 255); --color-sakura-accent: oklch(0.656 0.03 255); }
+[data-mood-theme="sad"] { --color-sakura-50: oklch(0.977 0.007 245); --color-sakura-100: oklch(0.948 0.018 245); --color-sakura-200: oklch(0.901 0.034 245); --color-sakura-300: oklch(0.829 0.061 245); --color-sakura-400: oklch(0.752 0.092 245); --color-sakura-500: oklch(0.679 0.118 245); --color-sakura-600: oklch(0.606 0.122 245); --color-sakura-700: oklch(0.521 0.113 245); --color-sakura-accent: oklch(0.656 0.17 245); }
+[data-mood-theme="anxious"] { --color-sakura-50: oklch(0.977 0.009 25); --color-sakura-100: oklch(0.948 0.022 25); --color-sakura-200: oklch(0.901 0.043 25); --color-sakura-300: oklch(0.829 0.076 25); --color-sakura-400: oklch(0.752 0.115 25); --color-sakura-500: oklch(0.679 0.147 25); --color-sakura-600: oklch(0.606 0.153 25); --color-sakura-700: oklch(0.521 0.141 25); --color-sakura-accent: oklch(0.656 0.21 25); }
+
+/*
+ * Player activation fade. The player's colors are mixes driven by registered percentages
+ * (--player-tint on the card, --chip-on/--chip-hover per mood chip) instead of swapped color
+ * classes: a color transition restarts every frame while the sakura tokens are fading, so
+ * white-to-mood only looked smooth for pink. Animating the mix amount keeps both fades in step.
+ */
+@property --player-tint { syntax: "<percentage>"; inherits: true; initial-value: 0%; }
+@property --chip-on { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+@property --chip-hover { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+.music-player {
+  --player-tint: 0%;
+  transition: --player-tint 500ms ease;
+  background-color: color-mix(in oklab, var(--color-sakura-200) var(--player-tint), color-mix(in oklab, var(--background) 80%, transparent));
+  border-color: color-mix(in oklab, var(--border) var(--player-tint), var(--color-sakura-100));
+}
+.music-player[data-active] { --player-tint: 100%; }
+.player-icon {
+  background-color: color-mix(in oklab, var(--color-sakura-200) var(--player-tint), var(--color-sakura-100));
+  color: color-mix(in oklab, var(--color-sakura-600) var(--player-tint), var(--color-sakura-500));
+}
+.player-plus:not(:hover) { color: color-mix(in oklab, var(--color-sakura-600) var(--player-tint), var(--color-sakura-500)); }
+.player-chip {
+  --chip-on: 0%;
+  --chip-hover: 0%;
+  --chip-bg: color-mix(in oklab, var(--color-sakura-200) var(--chip-on), color-mix(in oklab, color-mix(in oklab, var(--background) 60%, transparent) var(--player-tint), var(--color-sakura-100)));
+  --chip-bg-hover: color-mix(in oklab, var(--accent) var(--chip-on), color-mix(in oklab, var(--background) var(--player-tint), color-mix(in oklab, var(--color-sakura-200) 70%, transparent)));
+  --chip-text: color-mix(in oklab, var(--color-sakura-600) var(--chip-on), color-mix(in oklab, color-mix(in oklab, var(--color-charcoal) 50%, transparent) var(--player-tint), var(--color-sakura-500)));
+  transition: --chip-on 300ms ease, --chip-hover 150ms ease;
+  background-color: color-mix(in oklab, var(--chip-bg-hover) var(--chip-hover), var(--chip-bg));
+  color: color-mix(in oklab, var(--accent-foreground) var(--chip-hover), var(--chip-text));
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-sakura-200) var(--chip-on), transparent);
+}
+.player-chip[data-active] { --chip-on: 100%; }
+/* Turning the mood off fades the chip on the same 500ms curve as the card going back to white. */
+.music-player:not([data-active]) .player-chip { transition: --chip-on 500ms ease, --chip-hover 150ms ease; }
+@media (hover: hover) { .player-chip:hover { --chip-hover: 100%; } }
+.player-chip:focus-visible { box-shadow: 0 0 0 1px var(--ring); }
