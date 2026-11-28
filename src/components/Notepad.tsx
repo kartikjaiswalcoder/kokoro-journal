@@ -455,7 +455,7 @@ export default function Notepad({
             {pickSource && (
               <div className="fixed inset-0 z-[80] flex items-end justify-center bg-sakura-900/25 backdrop-blur-[2px] animate-fadeIn" onClick={() => setPickSource(false)}>
                 <div className="w-full max-w-sm m-3 rounded-2xl bg-linear-to-b from-sakura-50 to-background ring-1 ring-sakura-200 shadow-paper p-2 flex flex-col gap-1" onClick={(e) => e.stopPropagation()}>
-                  <button type="button" className="py-3 rounded-xl text-sm font-semibold text-white bg-linear-to-br from-sakura-400 to-sakura-500 shadow-soft active:from-sakura-500 active:to-sakura-600" onClick={() => { setPickSource(false); cameraRef.current?.click(); }}>Take photo</button>
+                  <button type="button" className="py-3 rounded-xl text-sm font-semibold text-sakura-600 bg-sakura-100/70 active:bg-sakura-200" onClick={() => { setPickSource(false); cameraRef.current?.click(); }}>Take photo</button>
                   <button type="button" className="py-3 rounded-xl text-sm font-semibold text-sakura-600 bg-sakura-100/70 active:bg-sakura-200" onClick={() => { setPickSource(false); fileRef.current?.click(); }}>Choose from gallery</button>
                   <button type="button" className="py-3 rounded-xl text-sm text-sakura-500/80 active:bg-sakura-50" onClick={() => setPickSource(false)}>Cancel</button>
                 </div>
