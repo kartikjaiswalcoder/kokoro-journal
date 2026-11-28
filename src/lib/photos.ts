@@ -122,6 +122,8 @@ async function flush() {
   if (batch.length === 0) return;
   batch.forEach((p) => inflight.add(p));
   try {
+    const { data: sess } = await supabase.auth.getSession();
+    if (!sess.session) return; // retried on sign-in
     const { data } = await supabase.storage.from(PHOTO_BUCKET).createSignedUrls(batch, LINK_SECONDS);
     data?.forEach((d, i) => {
       const path = batch[i];
@@ -158,6 +160,12 @@ function prefetchAllEntryPhotos() {
 if (typeof window !== "undefined") {
   prefetchAllEntryPhotos();
   subscribeStore(prefetchAllEntryPhotos);
+  // Links can only be made once signed in, so retry as soon as the session is known.
+  supabase.auth.onAuthStateChange((event) => {
+    if (event === "INITIAL_SESSION" || event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+      setTimeout(prefetchAllEntryPhotos, 0);
+    }
+  });
 }
 
 export function usePhotoUrls(paths: string[]): (string | undefined)[] {

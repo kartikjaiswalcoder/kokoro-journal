@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "@/lib/photos";
 import Sidebar from "@/components/Sidebar";
 import MobileNav from "@/components/MobileNav";
 import Calendar from "@/components/Calendar";

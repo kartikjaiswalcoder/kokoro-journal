@@ -45,6 +45,14 @@ export default function Notepad({
   const [hint, setHint] = useState(0);
   const hintTimerRef = useRef<number | undefined>(undefined);
   const fileRef = useRef<HTMLInputElement>(null);
+  const cameraRef = useRef<HTMLInputElement>(null);
+  const [pickSource, setPickSource] = useState(false);
+  // On phones, offer the camera alongside the gallery; computers open the file browser directly.
+  function pickPhotos() {
+    const touch = typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)").matches;
+    if (touch) setPickSource(true);
+    else fileRef.current?.click();
+  }
   const [uploading, setUploading] = useState(false);
   const [photoOpen, setPhotoOpen] = useState(false);
   const [content, setContent] = useState(existing?.content ?? "");
@@ -443,11 +451,21 @@ export default function Notepad({
             </button>
 
             <input ref={fileRef} type="file" accept="image/*" multiple hidden onChange={handleFiles} />
+            <input ref={cameraRef} type="file" accept="image/*" capture="environment" hidden onChange={handleFiles} />
+            {pickSource && (
+              <div className="fixed inset-0 z-[80] flex items-end justify-center bg-charcoal/30" onClick={() => setPickSource(false)}>
+                <div className="w-full max-w-sm m-3 rounded-2xl bg-background shadow-paper p-2 flex flex-col" onClick={(e) => e.stopPropagation()}>
+                  <button type="button" className="py-3 rounded-xl text-sm font-semibold text-charcoal hover:bg-sakura-50" onClick={() => { setPickSource(false); cameraRef.current?.click(); }}>Take photo</button>
+                  <button type="button" className="py-3 rounded-xl text-sm font-semibold text-charcoal hover:bg-sakura-50" onClick={() => { setPickSource(false); fileRef.current?.click(); }}>Choose from gallery</button>
+                  <button type="button" className="py-3 rounded-xl text-sm text-charcoal/60 hover:bg-sakura-50" onClick={() => setPickSource(false)}>Cancel</button>
+                </div>
+              </div>
+            )}
             {photos.length > 0 ? (
               <PhotoThumb paths={photos} size={36} busy={uploading} onClick={() => setPhotoOpen(true)} label="Open photos" />
             ) : (
               <button
-                onClick={() => fileRef.current?.click()}
+                onClick={pickPhotos}
                 disabled={uploading}
                 aria-label="Add photos"
                 title="Add photos"
@@ -524,7 +542,7 @@ export default function Notepad({
           label={longDate}
           onClose={() => setPhotoOpen(false)}
           onRemove={removePhoto}
-          onAdd={() => fileRef.current?.click()}
+          onAdd={pickPhotos}
           adding={uploading}
         />
       )}
