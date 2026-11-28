@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Check, SlidersHorizontal } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ENTRY_SORT_OPTIONS, type EntrySort } from "@/lib/entry-sort";
@@ -69,4 +70,20 @@ export default function EntrySortSelect({ value, onChange, moods, onMoodsChange 
       </Popover>
     </div>
   );
+}
+
+// Sort choice is remembered per list (across tabs and reloads); mood filters are not.
+export function usePersistedSort(list: "entries" | "reflections") {
+  const key = `kokoro:sort:${list}`;
+  const [sort, setSortState] = useState<EntrySort>(() => {
+    try {
+      const v = typeof window !== "undefined" ? window.localStorage.getItem(key) : null;
+      return v === "newest" || v === "oldest" || v === "updated" ? v : "newest";
+    } catch { return "newest"; }
+  });
+  const setSort = (v: EntrySort) => {
+    setSortState(v);
+    try { window.localStorage.setItem(key, v); } catch { /* ignore */ }
+  };
+  return [sort, setSort] as const;
 }
