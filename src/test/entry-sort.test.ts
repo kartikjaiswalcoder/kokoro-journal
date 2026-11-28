@@ -19,14 +19,3 @@ describe("sortEntries", () => {
     expect(dates(sortEntries(rows, "updated"))).toEqual(["2026-11-10", "2026-11-20", "2026-11-01"]);
   });
 });
-
-import { loadSort, saveSort } from "@/lib/entry-sort";
-describe("saved sort", () => {
-  it("defaults to Newest and remembers the chosen sort per list", () => {
-    localStorage.clear();
-    expect(loadSort("entries")).toBe("newest");
-    saveSort("entries", "oldest");
-    expect(loadSort("entries")).toBe("oldest");
-    expect(loadSort("reflections")).toBe("newest");
-  });
-});

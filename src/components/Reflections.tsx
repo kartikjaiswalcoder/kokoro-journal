@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import JournalSearch from "./JournalSearch";
 import EntrySortSelect from "./EntrySortSelect";
-import { sortEntries, loadSort, saveSort, type EntrySort } from "@/lib/entry-sort";
+import { sortEntries, type EntrySort } from "@/lib/entry-sort";
 import PhotoFrame, { PhotoThumb } from "./PhotoFrame";
 import { matchesJournalSearch } from "@/lib/journal-search";
 import { Button } from "@/components/ui/button";
@@ -16,8 +16,7 @@ import type { Mood } from "@/types";
 export default function Reflections({ onOpen }: { onOpen: (key: string) => void }) {
   const version = useStore();
   const [query, setQuery] = useState("");
-  const [sort, setSortState] = useState<EntrySort>(() => loadSort("reflections"));
-  const setSort = (s: EntrySort) => { setSortState(s); saveSort("reflections", s); };
+  const [sort, setSort] = useState<EntrySort>("newest");
   const [moods, setMoods] = useState<Mood[]>([]);
   const [photoDay, setPhotoDay] = useState<string | null>(null);
   const entries = useMemo(
