@@ -1,4 +1,4 @@
-import { Check, SlidersHorizontal } from "lucide-react";
+import { ArrowUpDown, Check, SlidersHorizontal } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ENTRY_SORT_OPTIONS, type EntrySort } from "@/lib/entry-sort";
 import { MOODS, type Mood } from "@/types";
@@ -18,25 +18,18 @@ type Props = {
   onMoodsChange: (moods: Mood[]) => void;
 };
 
-// One "Sort & Filter" menu: sort order (single choice) + mood filter (multi-select).
+// Two pills: saved sort order (single choice) and a temporary mood filter (multi-select).
 export default function EntrySortSelect({ value, onChange, moods, onMoodsChange }: Props) {
   const toggle = (m: Mood) => onMoodsChange(moods.includes(m) ? moods.filter((x) => x !== m) : [...moods, m]);
   const sortLabel = ENTRY_SORT_OPTIONS.find((o) => o.value === value)?.label;
   const filterLabel = moods.length === 0 ? null : moods.length === 1 ? MOODS.find((m) => m.key === moods[0])?.label : `${moods.length} moods`;
   return (
-    <div className="-mt-2 mb-4 flex justify-end">
+    <div className="-mt-2 mb-4 flex justify-end gap-2">
       <Popover>
-        <PopoverTrigger aria-label="Sort and filter" className={TRIGGER}>
-          <SlidersHorizontal size={13} className="text-sakura-500" />
-          <span className="text-sakura-600/60">Sort & Filter</span>
+        <PopoverTrigger aria-label="Sort by" className={TRIGGER}>
+          <ArrowUpDown size={13} className="text-sakura-500" />
+          <span className="text-sakura-600/60">Sort by</span>
           <span>{sortLabel}</span>
-          {filterLabel && (
-            <>
-              <span className="text-sakura-600/40">·</span>
-              <span>{filterLabel}</span>
-              <span className="ml-0.5 h-1.5 w-1.5 rounded-full bg-sakura-500" />
-            </>
-          )}
         </PopoverTrigger>
         <PopoverContent align="end" className="w-52 rounded-2xl border-sakura-100 bg-ivory-50 p-1 shadow-paper">
           <div className={HEADING}>Sort by</div>
@@ -49,7 +42,16 @@ export default function EntrySortSelect({ value, onChange, moods, onMoodsChange 
               </button>
             );
           })}
-          <div className="my-1 border-t border-sakura-100" />
+        </PopoverContent>
+      </Popover>
+      <Popover>
+        <PopoverTrigger aria-label="Filter by mood" className={TRIGGER}>
+          <SlidersHorizontal size={13} className="text-sakura-500" />
+          <span className="text-sakura-600/60">Filter</span>
+          <span>{filterLabel ?? "All moods"}</span>
+          {filterLabel && <span className="ml-0.5 h-1.5 w-1.5 rounded-full bg-sakura-500" />}
+        </PopoverTrigger>
+        <PopoverContent align="end" className="w-52 rounded-2xl border-sakura-100 bg-ivory-50 p-1 shadow-paper">
           <div className={HEADING}>Filter by mood</div>
           <button type="button" onClick={() => onMoodsChange([])} aria-pressed={moods.length === 0} className={`${ITEM} ${moods.length === 0 ? ON : OFF}`}>
             <span className="flex-1">All moods</span>

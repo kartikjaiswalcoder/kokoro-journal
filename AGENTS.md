@@ -54,4 +54,4 @@ use the editor.
 - Opening a day from Reflections passes startWithSummary so the notepad and its saved summary popup mount in the same render.
 - The per-device notification invite uses shouldOfferDevicePrompt (reminder-schedule) with a per-account, per-device localStorage dismissal; it only shows where permission is still 'default'.
 - Photo signed URLs (7-day) are prefetched for every cached entry when src/lib/photos.ts loads and on each store change, persisted in localStorage so links (and the browser image cache) are reused across visits, and each image is pre-decoded once its link is known; sign-out clears the stored links.
-- Entry sort orders (newest/oldest/recently updated) live in the pure entry-sort module; each list keeps its own sort state so search and sort never reset each other.
+- Entry sort orders live in the pure entry-sort module; each list saves its sort per device in localStorage (never auto-reset) while the mood filter stays component state that resets on tab switch, shown as two separate pills because they persist differently.

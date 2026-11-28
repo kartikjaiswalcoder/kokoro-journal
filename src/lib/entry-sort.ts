@@ -23,3 +23,21 @@ export function sortEntries<T extends Sortable>(entries: T[], sort: EntrySort): 
     return byDateDesc(a, b);
   });
 }
+
+// Sort is a lasting display preference: saved per list on this device, never reset by itself.
+const isSort = (v: unknown): v is EntrySort => ENTRY_SORT_OPTIONS.some((o) => o.value === v);
+export function loadSort(list: string): EntrySort {
+  try {
+    const v = localStorage.getItem(`kokoro_sort_${list}`);
+    return isSort(v) ? v : "newest";
+  } catch {
+    return "newest";
+  }
+}
+export function saveSort(list: string, sort: EntrySort): void {
+  try {
+    localStorage.setItem(`kokoro_sort_${list}`, sort);
+  } catch {
+    // ignore
+  }
+}
