@@ -6,6 +6,10 @@ import { MOODS, type Mood } from "@/types";
 const TRIGGER =
   "h-8 w-auto gap-1.5 rounded-full border border-sakura-200 bg-sakura-50/80 px-3 text-xs font-medium text-sakura-700 shadow-soft transition-colors hover:bg-sakura-100/70 focus:outline-none focus:ring-2 focus:ring-sakura-200 focus:ring-offset-0 inline-flex items-center";
 
+// Quieter than Sort by: a temporary filter, not a saved preference.
+const FILTER_TRIGGER =
+  "h-8 w-auto gap-1.5 rounded-full border border-transparent px-2.5 text-xs font-medium text-charcoal/50 transition-colors hover:bg-sakura-50/70 hover:text-sakura-600 focus:outline-none focus:ring-2 focus:ring-sakura-200 inline-flex items-center";
+
 const ITEM = "flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left text-xs transition-colors hover:bg-sakura-50 hover:text-sakura-600";
 const ON = "bg-sakura-50/70 text-sakura-700 font-medium";
 const OFF = "text-charcoal/75";
@@ -45,9 +49,9 @@ export default function EntrySortSelect({ value, onChange, moods, onMoodsChange 
         </PopoverContent>
       </Popover>
       <Popover>
-        <PopoverTrigger aria-label="Filter by mood" className={TRIGGER}>
-          <SlidersHorizontal size={13} className="text-sakura-500" />
-          <span className="text-sakura-600/60">Filter</span>
+        <PopoverTrigger aria-label="Filter by mood" className={filterLabel ? `${TRIGGER} border-dashed bg-transparent shadow-none` : FILTER_TRIGGER}>
+          <SlidersHorizontal size={12} className="text-sakura-400" />
+          <span className="text-sakura-600/50">Filter</span>
           <span>{filterLabel ?? "All moods"}</span>
           {filterLabel && <span className="ml-0.5 h-1.5 w-1.5 rounded-full bg-sakura-500" />}
         </PopoverTrigger>
